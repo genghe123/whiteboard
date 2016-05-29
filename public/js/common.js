@@ -382,18 +382,18 @@ $(function() {
 		var offset = $("#board").offset();
         nEndX = e.pageX - offset.left;
         nEndY = e.pageY - offset.top;
-        var nShapeTipWidth = Math.abs(nEndX - nX) - ctx.lineWidth;
-        var nShapeTipHeight = Math.abs(nEndY - nY) - ctx.lineWidth;
+        var nShapeTipWidth = Math.abs(nEndX - nX);
+        var nShapeTipHeight = Math.abs(nEndY - nY);
         if(bIsPaint) {
         	var nLeftX = nX < nEndX ? nX : nEndX;
         	var nTopY = nY < nEndY ? nY : nEndY;
         	shapeTip.css({
         		left: nLeftX + offset.left - ctx.lineWidth / 2, 
         		top: nTopY - ctx.lineWidth / 2,
-        		'border-radius': nShapeTipWidth/2 + 'px/' + nShapeTipHeight/2 + 'px'
+        		'border-radius': (nShapeTipWidth+ctx.lineWidth)/2 + 'px/' + (nShapeTipHeight+ctx.lineWidth)/2 + 'px'
         	});
-           	shapeTip.width(nShapeTipWidth);
-           	shapeTip.height(nShapeTipHeight);
+           	shapeTip.width(nShapeTipWidth - ctx.lineWidth);
+           	shapeTip.height(nShapeTipHeight - ctx.lineWidth);
            	shapeTip.show();
         }
   	}
