@@ -114,8 +114,10 @@ $(function() {
 	});
 
 	/******** 画板 ********/
-	$("#board").attr('width', $('#container').width());
-	$("#board").attr('height', window.innerHeight - $('.row').height());
+	var width = $('#container').width();
+	var height = window.innerHeight - $('.row').height();
+	$("#board").attr('width', width);
+	$("#board").attr('height', height);
 
 	//初始参数
 	var nX, nY, nEndX, nEndY;
@@ -126,6 +128,9 @@ $(function() {
 	var bNeedResetSize = false; //重置大小标识
 	var bNeedResetColor = true; //重置颜色标识
 	var nSeq = -1; //操作记录
+
+	ctx.fillStyle = '#fff';
+	ctx.fillRect(0, 0, width, height);
 
 	//鼠标拖动需要用的示意框
 	var shapeTip = $("<div class='tip'></div>");
@@ -473,7 +478,7 @@ $(function() {
   	//操作工具函数  
   	function fClearBoard() { //清空画板
   		ctx.fillStyle = "#fff";
-	  	ctx.clearRect(0, 0, $("#board").width(), $("#board").height());
+	  	ctx.fillRect(0, 0, width, height);
 	}
 
 	//用户工具
