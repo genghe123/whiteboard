@@ -499,8 +499,8 @@ $(function() {
 
 		var timeStamp = new Date().getTime();//时间戳
 		var sImgOpt = "image/octet-stream;";
-		sImgOpt += "Content-Disposition:attachment;";
-		sImgOpt += "filename=" + timeStamp + ".png";//图片名
+		//sImgOpt += "Content-Disposition:attachment;";
+		//sImgOpt += "filename=" + timeStamp + ".png";//图片名
 
 		var sDataURL = $("#board").get(0)
 						.toDataURL('image/png')
