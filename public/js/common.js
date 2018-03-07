@@ -114,8 +114,10 @@ $(function() {
 	});
 
 	/******** 画板 ********/
-	$("#board").attr('width', $('#container').width());
-	$("#board").attr('height', window.innerHeight - $('.row').height());
+	var width = $('#container').width();
+	var height = window.innerHeight - $('.row').height();
+	$("#board").attr('width', width);
+	$("#board").attr('height', height);
 
 	//初始参数
 	var nX, nY, nEndX, nEndY;
@@ -126,6 +128,9 @@ $(function() {
 	var bNeedResetSize = false; //重置大小标识
 	var bNeedResetColor = true; //重置颜色标识
 	var nSeq = -1; //操作记录
+
+	ctx.fillStyle = '#fff';
+	ctx.fillRect(0, 0, width, height);
 
 	//鼠标拖动需要用的示意框
 	var shapeTip = $("<div class='tip'></div>");
@@ -382,18 +387,18 @@ $(function() {
 		var offset = $("#board").offset();
         nEndX = e.pageX - offset.left;
         nEndY = e.pageY - offset.top;
-        var nShapeTipWidth = Math.abs(nEndX - nX) - ctx.lineWidth;
-        var nShapeTipHeight = Math.abs(nEndY - nY) - ctx.lineWidth;
+        var nShapeTipWidth = Math.abs(nEndX - nX);
+        var nShapeTipHeight = Math.abs(nEndY - nY);
         if(bIsPaint) {
         	var nLeftX = nX < nEndX ? nX : nEndX;
         	var nTopY = nY < nEndY ? nY : nEndY;
         	shapeTip.css({
         		left: nLeftX + offset.left - ctx.lineWidth / 2, 
         		top: nTopY - ctx.lineWidth / 2,
-        		'border-radius': nShapeTipWidth/2 + 'px/' + nShapeTipHeight/2 + 'px'
+        		'border-radius': (nShapeTipWidth+ctx.lineWidth)/2 + 'px/' + (nShapeTipHeight+ctx.lineWidth)/2 + 'px'
         	});
-           	shapeTip.width(nShapeTipWidth);
-           	shapeTip.height(nShapeTipHeight);
+           	shapeTip.width(nShapeTipWidth - ctx.lineWidth);
+           	shapeTip.height(nShapeTipHeight - ctx.lineWidth);
            	shapeTip.show();
         }
   	}
@@ -473,7 +478,7 @@ $(function() {
   	//操作工具函数  
   	function fClearBoard() { //清空画板
   		ctx.fillStyle = "#fff";
-	  	ctx.clearRect(0, 0, $("#board").width(), $("#board").height());
+	  	ctx.fillRect(0, 0, width, height);
 	}
 
 	//用户工具
@@ -494,8 +499,8 @@ $(function() {
 
 		var timeStamp = new Date().getTime();//时间戳
 		var sImgOpt = "image/octet-stream;";
-		sImgOpt += "Content-Disposition:attachment;";
-		sImgOpt += "filename=" + timeStamp + ".png";//图片名
+		//sImgOpt += "Content-Disposition:attachment;";
+		//sImgOpt += "filename=" + timeStamp + ".png";//图片名
 
 		var sDataURL = $("#board").get(0)
 						.toDataURL('image/png')
