@@ -13,7 +13,7 @@ HistorySchema.statics = {
 		for(var i = 0; i <= seq; i++) {
 			this.remove({seq: i}).exec(cb);
 		}
-	} 
-}
+    }
+};
 
 module.exports = HistorySchema;
